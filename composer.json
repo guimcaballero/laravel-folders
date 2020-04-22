@@ -1,0 +1,54 @@
+{
+    "name": "guimcaballero/laravel-folders",
+    "description": "Folders to upload multiple number of files dynamically",
+    "keywords": [
+        "guimcaballero",
+        "laravel-folders"
+    ],
+    "homepage": "https://github.com/guimcaballero/laravel-folders",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Guim Caballero",
+            "email": "guim@caballerocoll.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Guimcaballero\\LaravelFolders\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Guimcaballero\\LaravelFolders\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Guimcaballero\\LaravelFolders\\LaravelFoldersServiceProvider"
+            ],
+            "aliases": {
+                "LaravelFolders": "Guimcaballero\\LaravelFolders\\LaravelFoldersFacade"
+            }
+        }
+    }
+}
