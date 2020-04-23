@@ -1,4 +1,4 @@
-# Very short description of the package
+# Description
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/guimcaballero/laravel-folders.svg?style=flat-square)](https://packagist.org/packages/guimcaballero/laravel-folders)
 [![Build Status](https://img.shields.io/travis/guimcaballero/laravel-folders/master.svg?style=flat-square)](https://travis-ci.org/guimcaballero/laravel-folders)
