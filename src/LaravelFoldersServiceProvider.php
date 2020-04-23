@@ -25,7 +25,7 @@ class LaravelFoldersServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_folder_table.php' => database_path('migrations/'.date('Y-m-d-His').'_create_folders_table.php'),
+                __DIR__ . '../database/migrations/2020_04_20_141823_create_folders_table.php' => database_path('migrations/'.date('Y-m-d-His').'_create_folders_table.php'),
             ], 'config');
 
             // Registering package commands.
