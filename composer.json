@@ -24,6 +24,9 @@
         "phpunit/phpunit": "^8.0"
     },
     "autoload": {
+        "classmap": [
+            "database/migrations"
+        ],
         "psr-4": {
             "Guimcaballero\\LaravelFolders\\": "src"
         }
@@ -44,10 +47,7 @@
         "laravel": {
             "providers": [
                 "Guimcaballero\\LaravelFolders\\LaravelFoldersServiceProvider"
-            ],
-            "aliases": {
-                "LaravelFolders": "Guimcaballero\\LaravelFolders\\LaravelFoldersFacade"
-            }
+            ]
         }
     }
 }
