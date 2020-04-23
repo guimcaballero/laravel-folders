@@ -1,6 +1,6 @@
 <?php
 
-namespace Guimcaballero\LaravelFolders;
+namespace Guimcaballero\LaravelFolders\Models;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
