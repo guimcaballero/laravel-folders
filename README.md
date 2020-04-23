@@ -69,6 +69,26 @@ Then in web.php:
 
 # Usage
 
+## Add a folder to a model
+
+To add a folder to a model, add the following to the model class:
+
+```php
+    public function importantFiles()
+    {
+        return $this->morphOne(Folder::class, 'folderable');
+    }
+```
+
+## Create a folder
+
+To create a folder run:
+
+```php
+    $folder = Folder::createNewRandomFolder();
+    $user->importantFiles()->save($folder);
+```
+
 ## List all files in a folder
 
 ```php
