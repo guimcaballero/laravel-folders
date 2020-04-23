@@ -16,7 +16,7 @@ class LaravelFoldersServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-folders');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-folders');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
@@ -24,20 +24,9 @@ class LaravelFoldersServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('laravel-folders.php'),
             ], 'config');
 
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-folders'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-folders'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-folders'),
-            ], 'lang');*/
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_folder_table.php' => database_path('migrations/'.date('Y-m-d-His').'_create_folders_table.php'),
+            ], 'config');
 
             // Registering package commands.
             // $this->commands([]);
