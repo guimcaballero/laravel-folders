@@ -42,8 +42,8 @@ class LaravelFoldersServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-folders');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-folders', function () {
-            return new LaravelFolders;
-        });
+        // $this->app->singleton('laravel-folders', function () {
+        //     return new LaravelFolders;
+        // });
     }
 }

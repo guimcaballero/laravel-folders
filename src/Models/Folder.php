@@ -44,7 +44,7 @@ class Folder extends Model
         ]);
         $folder->save();
 
-        Storage::disk('public')->makeDirectory('folders/' . $folder->name);
+        Storage::disk('public')->makeDirectory(config('laravel-folders.directory_name') . '/' . $folder->name);
 
         return $folder;
     }
@@ -76,7 +76,7 @@ class Folder extends Model
 
     public function getListOfFiles(): array
     {
-        return Storage::disk('public')->files('folders/' . $this->name);
+        return Storage::disk('public')->files(config('laravel-folders.directory_name') . '/' . $this->name);
     }
 
 
@@ -96,7 +96,7 @@ class Folder extends Model
 
     public function uploadSingleFile($file)
     {
-        Storage::disk('public')->putFileAs('folders/' . $this->name, $file, $file->getClientOriginalName());
+        Storage::disk('public')->putFileAs(config('laravel-folders.directory_name') . '/' . $this->name, $file, $file->getClientOriginalName());
     }
 
     public function removeFiles($files)
@@ -108,9 +108,9 @@ class Folder extends Model
 
     public function removeSingleFile($file)
     {
-        $exists = Storage::disk('public')->exists('folders/' . $this->name . '/' . $file);
+        $exists = Storage::disk('public')->exists(config('laravel-folders.directory_name') . '/' . $this->name . '/' . $file);
         if ($exists) {
-            Storage::disk('public')->delete('folders/' . $this->name . '/' . $file);
+            Storage::disk('public')->delete(config('laravel-folders.directory_name') . '/' . $this->name . '/' . $file);
         }
     }
 }

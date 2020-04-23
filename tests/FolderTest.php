@@ -7,6 +7,8 @@ use Exception;
 use Guimcaballero\LaravelFolders\Models\Folder;
 use Orchestra\Testbench\TestCase;
 use Guimcaballero\LaravelFolders\LaravelFoldersServiceProvider;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
 class FolderTest extends TestCase
@@ -69,5 +71,86 @@ class FolderTest extends TestCase
 
         $this->expectException(Exception::class);
         $folder->name = 'other';
+    }
+
+    public function testCanUploadFiles()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $files = [
+            UploadedFile::fake()->image('image1.jpg'),
+            UploadedFile::fake()->image('image2.jpg'),
+            UploadedFile::fake()->image('image3.jpg'),
+        ];
+
+        $folder->uploadFiles($files);
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(3, $list);
+    }
+
+    public function testCanUploadSingleFile()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $folder->uploadSingleFile(UploadedFile::fake()->image('image1.jpg'));
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(1, $list);
+    }
+
+    public function testCanRemoveFiles()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $files = [
+            UploadedFile::fake()->image('image1.jpg'),
+            UploadedFile::fake()->image('image2.jpg'),
+            UploadedFile::fake()->image('image3.jpg'),
+        ];
+        $folder->uploadFiles($files);
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(3, $list);
+
+        $folder->removeFiles(['image1.jpg', 'image2.jpg']);
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(1, $list);
+    }
+
+    public function testCanRemoveSingleFile()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $folder->uploadSingleFile(UploadedFile::fake()->image('image1.jpg'));
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(1, $list);
+
+        $folder->removeSingleFile('image1.jpg');
+    }
+
+
+    public function testUploadTwoFilesWithSameNameReplacesFirst()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $folder->uploadSingleFile(UploadedFile::fake()->image('image1.jpg'));
+
+        $folder->uploadSingleFile(UploadedFile::fake()->image('image1.jpg'));
+
+        $list = $folder->getListOfFiles();
+        $this->assertCount(1, $list);
     }
 }
