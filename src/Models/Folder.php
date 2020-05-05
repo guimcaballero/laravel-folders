@@ -79,7 +79,10 @@ class Folder extends Model
 
 
 
-
+    public function hasFiles(): bool
+    {
+        return count($this->getListOfFiles()) > 0;
+    }
 
     public function getListOfFiles(): array
     {

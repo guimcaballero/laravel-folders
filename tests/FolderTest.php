@@ -139,7 +139,6 @@ class FolderTest extends TestCase
         $folder->removeSingleFile('image1.jpg');
     }
 
-
     public function testUploadTwoFilesWithSameNameReplacesFirst()
     {
         Storage::fake('public');
@@ -152,5 +151,30 @@ class FolderTest extends TestCase
 
         $list = $folder->getListOfFiles();
         $this->assertCount(1, $list);
+    }
+
+    public function testFolderHasFilesReturnsTrueIfThereAreFiles()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $files = [
+            UploadedFile::fake()->image('image1.jpg'),
+            UploadedFile::fake()->image('image2.jpg'),
+            UploadedFile::fake()->image('image3.jpg'),
+        ];
+        $folder->uploadFiles($files);
+
+        $this->assertTrue($folder->hasFiles());
+    }
+
+    public function testFolderHasFilesReturnsFalseIfThereAreNoFiles()
+    {
+        Storage::fake('public');
+
+        $folder = Folder::createNewRandomFolder();
+
+        $this->assertFalse($folder->hasFiles());
     }
 }
