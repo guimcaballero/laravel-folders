@@ -21,6 +21,8 @@ class CreateFoldersTable extends Migration
 
             $table->unsignedBigInteger('folderable_id')->nullable();
             $table->string('folderable_type')->nullable();
+
+            $table->string('folderable_group')->nullable();
         });
     }
 

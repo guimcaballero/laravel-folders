@@ -29,7 +29,7 @@ class Folder extends Model
      * @param string $name
      * @return Folder
      */
-    public static function createNewFolder(string $name): Folder
+    public static function createNewFolder(string $name, string $group = null): Folder
     {
         if (
             strpos($name, ' ') !== false
@@ -41,6 +41,7 @@ class Folder extends Model
 
         $folder = new Folder([
             'name' => $name,
+            'folderable_group' => $group
         ]);
         $folder->save();
 
@@ -54,7 +55,7 @@ class Folder extends Model
      *
      * @return Folder
      */
-    public static function createNewRandomFolder(): Folder
+    public static function createNewRandomFolder(string $group = null): Folder
     {
         $name = '';
         $counter = 0;
@@ -62,7 +63,7 @@ class Folder extends Model
             $name = Str::random(20 + $counter++);
         } while (Folder::where("name", $name)->first() != null);
 
-        return Folder::createNewFolder($name);
+        return Folder::createNewFolder($name, $group);
     }
 
     public function setNameAttribute($value)
@@ -74,18 +75,16 @@ class Folder extends Model
         }
     }
 
+
+
+
+
+
+
     public function getListOfFiles(): array
     {
         return Storage::disk('public')->files(config('laravel-folders.directory_name') . '/' . $this->name);
     }
-
-
-
-
-
-
-
-
 
     public function uploadFiles($files)
     {

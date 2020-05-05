@@ -136,13 +136,20 @@ You can have more than one folder in a class, like for example:
 ```php
     public function importantDocuments()
     {
-        return $this->morphOne(Folder::class, 'folderable');
+        return $this->morphOne(Folder::class, 'folderable')->where('folderable_group', 'important');
     }
 
     public function lessImportantDocuments()
     {
-        return $this->morphOne(Folder::class, 'folderable');
+        return $this->morphOne(Folder::class, 'folderable')->where('folderable_group', 'less_important');
     }
+```
+
+You then have to pass the corresponding group when creating the folder:
+
+```php
+    $folder = Folder::createNewRandomFolder('important');
+    $user->importantFiles()->save($folder);
 ```
 
 ### Changelog
